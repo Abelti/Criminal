@@ -29,3 +29,6 @@ export const CardFooter = ({ className, children, ...props }) => (
         {children}
     </div>
 );
+export function CardDescription({ children }) {
+    return <p className="text-gray-500">{children}</p>;
+}

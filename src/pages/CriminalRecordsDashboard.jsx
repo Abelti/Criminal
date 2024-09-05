@@ -5,9 +5,27 @@ import Input from "@/components/ui/input";
 import Label from "@/components/ui/label";
 import Separator from "@/components/ui/separator";
 import { Check, ChevronLeft, ChevronRight, Clock, MoreVertical, Search, X } from "lucide-react";
+import { useState, useEffect } from 'react';
 
 
 export default function CriminalRecordDashboard() {
+    const [records, setRecords] = useState([]);
+    const [searchId, setSearchId] = useState('');
+    const [selectedRecord, setSelectedRecord] = useState(null);
+
+    useEffect(() => {
+        fetch('/api/records')
+            .then(response => response.json())
+            .then(data => setRecords(data))
+            .catch(error => console.error('Error fetching records:', error));
+    }, []);
+
+    const handleSearch = () => {
+        fetch(`/api/records/${searchId}`)
+            .then(response => response.json())
+            .then(data => setSelectedRecord(data))
+            .catch(error => console.error('Error fetching record:', error));
+    };
     return (
         <div className="min-h-screen bg-gray-100">
             {/* Header */}
@@ -15,7 +33,7 @@ export default function CriminalRecordDashboard() {
                 <h1 className="text-2xl font-semibold">Criminal Record Dashboard</h1>
                 <div className="flex items-center space-x-4">
                     <div className="relative">
-                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" onKeyDown={handleSearch()} />
                         <Input placeholder="Search records" className="pl-8 w-64" />
                     </div>
                     <Button variant="ghost" size="icon">

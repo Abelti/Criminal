@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Navbar from '../components/header/Navbar';
 import CriminalRecordsDashboard from './CriminalRecordsDashboard';
+import ProfilePage from './ProfilePage';
+import SettingsPage from './SettingsPage';
 
 const UserPage = () => {
   const [activePage, setActivePage] = useState('Dashboard');
@@ -67,8 +69,8 @@ const UserPage = () => {
           <h1 className="text-2xl font-bold mb-4">{activePage}</h1>
           <div>
             {activePage === 'Dashboard' && <CriminalRecordsDashboard />}
-            {activePage === 'Profile' && <p>This is your profile page.</p>}
-            {activePage === 'Settings' && <p>Manage your settings here.</p>}
+            {activePage === 'Profile' && <ProfilePage />}
+            {activePage === 'Settings' && <SettingsPage />}
             {activePage === 'Account' && <p>Manage your account settings.</p>}
             {activePage === 'Privacy' && <p>Adjust your privacy settings.</p>}
           </div>
